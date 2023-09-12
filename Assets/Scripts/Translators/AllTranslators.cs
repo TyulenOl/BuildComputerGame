@@ -41,10 +41,10 @@ namespace Translators
                 var answer = "Вам не хватает: ";
                 foreach (var function in computerFunctionsList)
                 {
-                    answer += $"{TranslateComputerFunction(function)}, ";
+                    answer += $"{TranslateComputerFunction(function).ToLower()}, ";
                 }
 
-                answer.Remove(answer.Length - 2);
+                answer = answer.Remove(answer.Length - 2);
                 answer += ".";
                 return answer;
             } 
@@ -63,7 +63,7 @@ namespace Translators
                     answer += $"{TranslateComputerFunction(function).ToLower()}, ";
                 }
 
-                answer.Remove(answer.Length - 2);
+                answer = answer.Remove(answer.Length - 2);
                 answer += ". ";
                 return answer;
             } 
@@ -75,8 +75,8 @@ namespace Translators
             
             string GetUniversalAnswer()
             {
-                var answer = $"Вы попытались добавить в конфигурацию устройство {TranslateComputerPart(partDuplication.ExtraPart.Type)}." +
-                             $" Это невозможно, потому что у вас уже есть устройство данного типа - {TranslateComputerPart(partDuplication.ExistingPart.Type)}";
+                var answer = $"Вы попытались добавить в конфигурацию устройство типа {TranslateComputerPart(partDuplication.ExtraPart.Type).ToLower()} - \"{partDuplication.ExtraPart.Name}\"." +
+                             $" Это невозможно, потому что у вас уже есть устройство данного типа - {TranslateComputerPart(partDuplication.ExistingPart.Type).ToLower()} - \"{partDuplication.ExistingPart.Name}\"";
                 return answer;
             } 
         }
@@ -98,10 +98,10 @@ namespace Translators
                 var answer = $"У добавляемого обьекта {TranslateComputerPart(extraFunctions.Part.Type)} есть лишние функции: ";
                 foreach (var function in computerFunctionsList)
                 {
-                    answer += $"{TranslateComputerFunction(function).ToLower()}, ";
+                    answer += $"{TranslateComputerFunction(function).ToLower()}";
                 }
 
-                answer.Remove(answer.Length - 2);
+                answer = answer.Remove(answer.Length - 2);
                 answer += ". Постарайтесь избежать лишних функций, приборы с большим числом функций в реальной жизни стоят дороже.";
                 return answer;
             } 
