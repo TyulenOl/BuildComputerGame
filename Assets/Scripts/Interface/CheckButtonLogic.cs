@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Interface;
+using Translators;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -10,8 +11,7 @@ using UnityEngine.UI;
 public class CheckButtonLogic : MonoBehaviour
 {
     private Button button;
-
-    [SerializeField] private RectTransform notWinPanel;
+    
     [SerializeField] private RectTransform winPanel;
     [SerializeField] private RectTransform panels;
 
@@ -23,10 +23,21 @@ public class CheckButtonLogic : MonoBehaviour
 
     private void OnButtonClick()
     {
-        var isNeededPartsEmpty = !Computer.Instance.GetNeededFunctions().Any();
-        
+        var neededParts = Computer.Instance.GetNeededFunctions().ToList();
+        var isNeededPartsEmpty = !neededParts.Any();
+
         winPanel.gameObject.SetActive(isNeededPartsEmpty);
-        notWinPanel.gameObject.SetActive(!isNeededPartsEmpty);
+        if (isNeededPartsEmpty)
+        {
+            ExceptionPanel.Instance.gameObject.SetActive(false);
+        }
+        else
+        {
+            var str = "Вы не добавили всех нужных компонентов. \n";
+            var addStr =
+                TranslatorController.Instance.AllTranslators.TranslateNeededFunctions(neededParts);
+            ExceptionPanel.Instance.ReDrawException(str + addStr);
+        }
         panels.gameObject.SetActive(true);
     }
 }
