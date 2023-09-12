@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Computer: MonoBehaviour
 {
@@ -16,7 +17,9 @@ public class Computer: MonoBehaviour
     private Dictionary<ComputerPartType, ComputerPart> addedParts;
     private HashSet<ComputerFunctions> addedFunctionsSet;
     private HashSet<ComputerFunctions> requiredFunctionsSet;
-    
+
+    public UnityEvent<HashSet<ComputerFunctions>> computerFunctionsChanged;
+
     private void Awake()
     {
         if (Instance == null)
@@ -62,6 +65,7 @@ public class Computer: MonoBehaviour
         if (part.Functions.Any(x => !requiredFunctionsSet.Contains(x)))
         {
             callback = new ExtraFunctions(part.Functions.Except(requiredFunctionsSet));
+            Add();
             return;
         }
 
@@ -74,6 +78,7 @@ public class Computer: MonoBehaviour
             {
                 addedFunctionsSet.Add(function);
             }
+            computerFunctionsChanged.Invoke(addedFunctionsSet);
         }
     }
 
@@ -86,6 +91,7 @@ public class Computer: MonoBehaviour
             addedParts.Remove(part.Type);
             foreach (var function in part.Functions)
                 addedFunctionsSet.Remove(function);
+            computerFunctionsChanged.Invoke(addedFunctionsSet);
             return true;
         }
 
