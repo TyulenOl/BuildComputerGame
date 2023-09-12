@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Translators
@@ -49,8 +50,40 @@ namespace Translators
             } 
         }
         
-        public string TranslateExtraFunctions(IReadOnlyList<ComputerFunctions> computerFunctionsList)
+        public string TranslateFunctionDuplications(FunctionDuplication functionDuplication)
         {
+            var functionsList = functionDuplication.Value.ToList();
+            return GetUniversalAnswer();
+            
+            string GetUniversalAnswer()
+            {
+                var answer = "Нельзя добавить в конфигурацию устройства с дублирущимися функциями: ";
+                foreach (var function in functionsList)
+                {
+                    answer += $"{TranslateComputerFunction(function).ToLower()}, ";
+                }
+
+                answer.Remove(answer.Length - 2);
+                answer += ". ";
+                return answer;
+            } 
+        }
+        
+        public string TranslatePartDuplication(PartDuplication partDuplication)
+        {
+            return GetUniversalAnswer();
+            
+            string GetUniversalAnswer()
+            {
+                var answer = $"Вы попытались добавить в конфигурацию устройство {TranslateComputerPart(partDuplication.ExtraPart.Type)}." +
+                             $" Это невозможно, потому что у вас уже есть устройство данного типа - {TranslateComputerPart(partDuplication.ExistingPart.Type)}";
+                return answer;
+            } 
+        }
+        
+        public string TranslateExtraFunctions(ExtraFunctions extraFunctions)
+        {
+            var computerFunctionsList = extraFunctions.Value;
             if (computerFunctionsList.Count == 0)
                 return "";
             
@@ -62,14 +95,14 @@ namespace Translators
             
             string GetUniversalNeededAnswer()
             {
-                var answer = "Лишнее : ";
+                var answer = $"У добавляемого обьекта {TranslateComputerPart(extraFunctions.Part.Type)} есть лишние функции: ";
                 foreach (var function in computerFunctionsList)
                 {
-                    answer += $"{TranslateComputerFunction(function)}, ";
+                    answer += $"{TranslateComputerFunction(function).ToLower()}, ";
                 }
 
                 answer.Remove(answer.Length - 2);
-                answer += ".";
+                answer += ". Постарайтесь избежать лишних функций, приборы с большим числом функций в реальной жизни стоят дороже.";
                 return answer;
             } 
         }
