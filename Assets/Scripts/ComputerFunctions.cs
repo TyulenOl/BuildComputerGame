@@ -5,6 +5,6 @@
     See,
     Print,
     PrintPaper,
-    Fax,
+    Screen,
     Scan
 }

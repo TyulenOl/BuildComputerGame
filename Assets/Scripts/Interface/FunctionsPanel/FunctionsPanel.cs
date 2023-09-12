@@ -20,41 +20,41 @@ public class FunctionsPanel : MonoBehaviour
 
     private void OnFunctionsChanged(HashSet<ComputerFunctions> computerFunctionsSet)
     {
-        var functionPanelItems = new List<FunctionsPanelItem>();
-        foreach (var computerFunction in computerFunctionsSet)
-        {
-            switch (computerFunction)
-            {
-                    case ComputerFunctions.Hear: 
-                        hearPanelItem.ReDraw(true);
-                    functionPanelItems.Add(hearPanelItem);
-                    break;
-                    case ComputerFunctions.Speak:
-                    faxPanelItem.ReDraw(true);
-                    functionPanelItems.Add(faxPanelItem);
-                    break;
-                    case ComputerFunctions.See:
-                    faxPanelItem.ReDraw(true);
-                    functionPanelItems.Add(faxPanelItem);
-                    break;
-                    case ComputerFunctions.Print:
-                    faxPanelItem.ReDraw(true);
-                    functionPanelItems.Add(faxPanelItem);
-                    break;
-                    case ComputerFunctions.PrintPaper:
-                    faxPanelItem.ReDraw(true);
-                    functionPanelItems.Add(faxPanelItem);
-                    break;
-                    case ComputerFunctions.Fax:
-                    faxPanelItem.ReDraw(true);
-                    functionPanelItems.Add(faxPanelItem);
-                    break;
-                    case ComputerFunctions.Scan:
-                    faxPanelItem.ReDraw(true);
-                    functionPanelItems.Add(faxPanelItem);
-                    break;
-            }
-        }
+        // var functionPanelItems = new List<FunctionsPanelItem>();
+        // foreach (var computerFunction in computerFunctionsSet)
+        // {
+        //     switch (computerFunction)
+        //     {
+        //             case ComputerFunctions.Hear: 
+        //                 hearPanelItem.ReDraw(true);
+        //             functionPanelItems.Add(hearPanelItem);
+        //             break;
+        //             case ComputerFunctions.Speak:
+        //             faxPanelItem.ReDraw(true);
+        //             functionPanelItems.Add(faxPanelItem);
+        //             break;
+        //             case ComputerFunctions.See:
+        //             faxPanelItem.ReDraw(true);
+        //             functionPanelItems.Add(faxPanelItem);
+        //             break;
+        //             case ComputerFunctions.Print:
+        //             faxPanelItem.ReDraw(true);
+        //             functionPanelItems.Add(faxPanelItem);
+        //             break;
+        //             case ComputerFunctions.PrintPaper:
+        //             faxPanelItem.ReDraw(true);
+        //             functionPanelItems.Add(faxPanelItem);
+        //             break;
+        //             case ComputerFunctions.Fax:
+        //             faxPanelItem.ReDraw(true);
+        //             functionPanelItems.Add(faxPanelItem);
+        //             break;
+        //             case ComputerFunctions.Scan:
+        //             faxPanelItem.ReDraw(true);
+        //             functionPanelItems.Add(faxPanelItem);
+        //             break;
+        //     }
+        // }
     }
 
     private void SetAllActive( List<FunctionsPanelItem> functionsPanelItems,bool active)
