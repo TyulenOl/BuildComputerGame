@@ -4,5 +4,7 @@
     AudioEnter,
     Keyboard,
     Mouse,
-    PrinterOrFax
+    PrinterOrFax,
+    Display,
+    Camera
 }

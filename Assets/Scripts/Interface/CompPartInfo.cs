@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Interface;
 using TMPro;
+using Translators;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -23,7 +24,7 @@ public class CompPartInfo : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     private void Awake()
     {
-        compPartName.text = ComputerPartData.Name;
+        compPartName.text = computerPartData.Name;
         compPartImage.sprite = ComputerPartData.Sprite;
         canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();

@@ -6,5 +6,5 @@
     Print,
     PrintPaper,
     Screen,
-    Scan
+    Mouse
 }

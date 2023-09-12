@@ -1,10 +1,33 @@
+using Translators;
+using UnityEngine;
+
 namespace Interface
 {
     public class ComputerPanel : PartsPanel
     {
-        public void AddPart(ComputerPart computerPart)
+        private AllTranslators allTranslators => TranslatorController.Instance.AllTranslators;
+        
+        public void AddPart(ComputerPart computerPart, out Callback callback)
         {
-            Computer.Instance.AddPart(computerPart, out var callback);
+            Computer.Instance.AddPart(computerPart, out callback);
+            if (callback != null)
+            {
+                var text = "Что то не так";
+                if (callback is ExtraFunctions extra)
+                {
+                    text = allTranslators.TranslateExtraFunctions(extra);
+                }
+                else if (callback is FunctionDuplication func)
+                {
+                    text = allTranslators.TranslateFunctionDuplications(func);
+                }
+                else if (callback is PartDuplication part)
+                {
+                    text = allTranslators.TranslatePartDuplication(part);
+                }
+                
+                ExceptionPanel.Instance.ReDrawException(text);
+            }
         }
 
         public override void RemovePart(CompPartInfo computerPartInfo)
@@ -14,11 +37,9 @@ namespace Interface
 
         public override void AddVisualPart(CompPartInfo compPartInfo)
         {
+            AddPart(compPartInfo.ComputerPartData, out var callback);
+            if(callback != null) return;
             base.AddVisualPart(compPartInfo);
-            if (Computer.Instance != null)
-            {
-                AddPart(compPartInfo.ComputerPartData);
-            }
         }
     }
 }

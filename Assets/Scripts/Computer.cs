@@ -18,7 +18,7 @@ public class Computer: MonoBehaviour
     private HashSet<ComputerFunctions> addedFunctionsSet;
     private HashSet<ComputerFunctions> requiredFunctionsSet;
 
-    public UnityEvent<HashSet<ComputerFunctions>> computerFunctionsChanged;
+    public event Action <HashSet<ComputerFunctions>> computerFunctionsChanged;
 
     private void Awake()
     {
@@ -57,15 +57,14 @@ public class Computer: MonoBehaviour
         // если хотя бы одна функция уже есть
         if (part.Functions.Any(x => addedFunctionsSet.Contains(x)))
         {
-            callback = new FunctionDuplication(part.Functions.Intersect(addedFunctionsSet));
+            callback = new FunctionDuplication(part ,part.Functions.Intersect(addedFunctionsSet));
             return;
         }
         
         // eсли есть лишняя функция
         if (part.Functions.Any(x => !requiredFunctionsSet.Contains(x)))
         {
-            callback = new ExtraFunctions(part.Functions.Except(requiredFunctionsSet));
-            Add();
+            callback = new ExtraFunctions(part, part.Functions.Except(requiredFunctionsSet));
             return;
         }
 
@@ -78,7 +77,7 @@ public class Computer: MonoBehaviour
             {
                 addedFunctionsSet.Add(function);
             }
-            computerFunctionsChanged.Invoke(addedFunctionsSet);
+            computerFunctionsChanged?.Invoke(addedFunctionsSet);
         }
     }
 
@@ -91,7 +90,7 @@ public class Computer: MonoBehaviour
             addedParts.Remove(part.Type);
             foreach (var function in part.Functions)
                 addedFunctionsSet.Remove(function);
-            computerFunctionsChanged.Invoke(addedFunctionsSet);
+            computerFunctionsChanged?.Invoke(addedFunctionsSet);
             return true;
         }
 
