@@ -100,7 +100,7 @@ public class Computer: MonoBehaviour
 
     public IEnumerable<ComputerFunctions> GetNeededFunctions()
     {
-        return requiredFunctions.Except(addedFunctionsSet);
+        return requiredFunctionsSet.Except(addedFunctionsSet);
     }
     
     public IEnumerable<ComputerFunctions> GetExtraFunctions()
