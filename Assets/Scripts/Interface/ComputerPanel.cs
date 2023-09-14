@@ -37,6 +37,7 @@ namespace Interface
 
         public override void AddVisualPart(CompPartInfo compPartInfo)
         {
+            if (compPartInfo == null) return;
             AddPart(compPartInfo.ComputerPartData, out var callback);
             if(callback != null) return;
             base.AddVisualPart(compPartInfo);

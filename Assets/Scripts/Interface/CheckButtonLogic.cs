@@ -30,6 +30,7 @@ public class CheckButtonLogic : MonoBehaviour
         if (isNeededPartsEmpty)
         {
             ExceptionPanel.Instance.gameObject.SetActive(false);
+            ScormController.Instance.SaveScore(true);
         }
         else
         {
@@ -37,6 +38,7 @@ public class CheckButtonLogic : MonoBehaviour
             var addStr =
                 TranslatorController.Instance.AllTranslators.TranslateNeededFunctions(neededParts);
             ExceptionPanel.Instance.ReDrawException(str + addStr);
+            ScormController.Instance.SaveScore(false);
         }
         panels.gameObject.SetActive(true);
     }
